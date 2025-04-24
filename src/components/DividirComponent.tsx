@@ -7,15 +7,18 @@ interface Props {
   difficulty: string;
   num1: number;
   num2: number;
+  onCorrectAnswer: () => void;
+  onIncorrectAnswer: () => void;
 }
 
-const DividirComponent = ({ difficulty, num1, num2 }: Props) => {
+const DividirComponent = ({ difficulty, num1, num2, onCorrectAnswer, onIncorrectAnswer }: Props) => {
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
 
   const checkDivision = (guess: number) => {
     if (num2 === 0) {
       setFeedback('No se puede dividir por cero.');
+      onIncorrectAnswer();
       return;
     }
 
@@ -23,9 +26,11 @@ const DividirComponent = ({ difficulty, num1, num2 }: Props) => {
     if (guess === correctAnswer) {
       setResult(correctAnswer);
       setFeedback('¡Correcto! ¡Bien hecho!');
+      onCorrectAnswer();
     } else {
       setResult(null);
       setFeedback(`Incorrecto. Intenta de nuevo.`);
+      onIncorrectAnswer();
     }
   };
 
@@ -63,4 +68,3 @@ const DividirComponent = ({ difficulty, num1, num2 }: Props) => {
 };
 
 export default DividirComponent;
-

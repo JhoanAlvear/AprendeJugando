@@ -7,9 +7,11 @@ interface Props {
   difficulty: string;
   num1: number;
   num2: number;
+    onCorrectAnswer: () => void;
+    onIncorrectAnswer: () => void;
 }
 
-const MultiplicarComponent = ({ difficulty, num1, num2 }: Props) => {
+const MultiplicarComponent = ({ difficulty, num1, num2, onCorrectAnswer, onIncorrectAnswer }: Props) => {
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
 
@@ -18,9 +20,11 @@ const MultiplicarComponent = ({ difficulty, num1, num2 }: Props) => {
     if (guess === correctAnswer) {
       setResult(correctAnswer);
       setFeedback('¡Correcto! ¡Bien hecho!');
+        onCorrectAnswer();
     } else {
       setResult(null);
       setFeedback(`Incorrecto. Intenta de nuevo.`);
+        onIncorrectAnswer();
     }
   };
 
@@ -58,4 +62,3 @@ const MultiplicarComponent = ({ difficulty, num1, num2 }: Props) => {
 };
 
 export default MultiplicarComponent;
-

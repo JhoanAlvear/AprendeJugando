@@ -5,11 +5,13 @@ import { Card, CardContent } from "@/components/ui/card"
 
 interface Props {
   difficulty: string;
+  onCorrectAnswer: () => void;
+  onIncorrectAnswer: () => void;
 }
 
 const words = ['manzana', 'casa', 'sol', 'luna', 'perro'];
 
-const LeerComponent = ({ difficulty }: Props) => {
+const LeerComponent = ({ difficulty, onCorrectAnswer, onIncorrectAnswer }: Props) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -37,11 +39,13 @@ const LeerComponent = ({ difficulty }: Props) => {
   const checkSpelling = () => {
     if (userInput.toLowerCase() === currentWord) {
       setFeedback('¡Correcto! ¡Bien hecho!');
+      onCorrectAnswer();
       // Move to the next word or loop back to the start
       setCurrentWordIndex((prevIndex) => (prevIndex + 1) % wordList.length);
       setUserInput(''); // Clear the input for the next word
     } else {
       setFeedback('Incorrecto. Intenta de nuevo.');
+      onIncorrectAnswer();
     }
   };
 
@@ -73,4 +77,3 @@ const LeerComponent = ({ difficulty }: Props) => {
 };
 
 export default LeerComponent;
-

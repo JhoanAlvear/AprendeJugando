@@ -11,6 +11,7 @@ export default function RestarPage() {
 
     const [num1, setNum1] = useState(15);
     const [num2, setNum2] = useState(7);
+    const [streak, setStreak] = useState(0);
 
     useEffect(() => {
         // Ajustar los números según la dificultad
@@ -33,18 +34,28 @@ export default function RestarPage() {
         }
     }, [difficulty]);
 
+    const handleCorrectAnswer = () => {
+        setStreak(prevStreak => prevStreak + 1);
+    };
+
+    const handleIncorrectAnswer = () => {
+        setStreak(0);
+    };
+
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-8">
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Restar
       </h1>
+      <p className="text-xl font-semibold mb-4 text-muted-foreground">
+        Racha: {streak}
+      </p>
       <Card className="w-full max-w-md">
         <CardContent className="flex flex-col items-center justify-center">
-          <RestarComponent difficulty={difficulty} num1={num1} num2={num2}/>
+          <RestarComponent difficulty={difficulty} num1={num1} num2={num2} onCorrectAnswer={handleCorrectAnswer} onIncorrectAnswer={handleIncorrectAnswer}/>
         </CardContent>
       </Card>
     </main>
   );
 }
-

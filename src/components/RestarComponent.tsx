@@ -7,30 +7,37 @@ interface Props {
   difficulty: string;
   num1: number;
   num2: number;
+    onCorrectAnswer: () => void;
+    onIncorrectAnswer: () => void;
 }
 
-const RestarComponent = ({ difficulty, num1, num2 }: Props) => {
+const RestarComponent = ({ difficulty, num1, num2, onCorrectAnswer, onIncorrectAnswer }: Props) => {
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
-    const [countingObjects, setCountingObjects] = useState<string[]>([]);
+    const [countingObjects1, setCountingObjects1] = useState<string[]>([]);
+    const [countingObjects2, setCountingObjects2] = useState<string[]>([]);
 
     useEffect(() => {
         if (difficulty === 'facil') {
-            const objects = Array(num1).fill('🍎'); // Use a simple apple emoji
-            setCountingObjects(objects);
+            setCountingObjects1(Array.from({ length: num1 }, (_, i) => '🍎'));
+            setCountingObjects2(Array.from({ length: num2 }, (_, i) => '🍎'));
         } else {
-            setCountingObjects([]);
+            setCountingObjects1([]);
+            setCountingObjects2([]);
         }
-    }, [difficulty, num1]);
+    }, [difficulty, num1, num2]);
+
 
   const checkSubtraction = (guess: number) => {
     const correctAnswer = num1 - num2;
     if (guess === correctAnswer) {
       setResult(correctAnswer);
       setFeedback('¡Correcto! ¡Bien hecho!');
+        onCorrectAnswer();
     } else {
       setResult(null);
       setFeedback(`Incorrecto. Intenta de nuevo.`);
+        onIncorrectAnswer();
     }
   };
 
@@ -41,10 +48,18 @@ const RestarComponent = ({ difficulty, num1, num2 }: Props) => {
               ¿Cuánto es {num1} - {num2}?
             </p>
             {difficulty === 'facil' && (
-                <div className="flex space-x-2 mb-4">
-                    {countingObjects.map((object, index) => (
-                        <span key={index} className="text-2xl">{object}</span>
-                    ))}
+                <div className="flex flex-col items-center space-y-2 mb-4">
+                    <div className="flex space-x-2">
+                        {countingObjects1.map((object, index) => (
+                            <span key={`obj1-${index}`} className="text-2xl">{object}</span>
+                        ))}
+                    </div>
+                    <span className="text-2xl">-</span>
+                    <div className="flex space-x-2">
+                        {countingObjects2.map((object, index) => (
+                            <span key={`obj2-${index}`} className="text-2xl">{object}</span>
+                        ))}
+                    </div>
                 </div>
             )}
             <input

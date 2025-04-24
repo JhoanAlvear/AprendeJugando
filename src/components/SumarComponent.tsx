@@ -7,9 +7,11 @@ interface Props {
   difficulty: string;
     num1: number;
     num2: number;
+    onCorrectAnswer: () => void;
+    onIncorrectAnswer: () => void;
 }
 
-const SumarComponent = ({ difficulty, num1, num2 }: Props) => {
+const SumarComponent = ({ difficulty, num1, num2, onCorrectAnswer, onIncorrectAnswer }: Props) => {
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
     const [countingObjects1, setCountingObjects1] = useState<string[]>([]);
@@ -17,10 +19,8 @@ const SumarComponent = ({ difficulty, num1, num2 }: Props) => {
 
     useEffect(() => {
         if (difficulty === 'facil') {
-            const objects1 = Array(num1).fill('🌻');
-            const objects2 = Array(num2).fill('🌻');
-            setCountingObjects1(objects1);
-            setCountingObjects2(objects2);
+            setCountingObjects1(Array.from({ length: num1 }, (_, i) => '🌻'));
+            setCountingObjects2(Array.from({ length: num2 }, (_, i) => '🌻'));
         } else {
             setCountingObjects1([]);
             setCountingObjects2([]);
@@ -32,9 +32,11 @@ const SumarComponent = ({ difficulty, num1, num2 }: Props) => {
     if (guess === correctAnswer) {
       setResult(correctAnswer);
       setFeedback('¡Correcto! ¡Bien hecho!');
+        onCorrectAnswer();
     } else {
       setResult(null);
       setFeedback(`Incorrecto. Intenta de nuevo.`);
+        onIncorrectAnswer();
     }
   };
 
@@ -45,14 +47,14 @@ const SumarComponent = ({ difficulty, num1, num2 }: Props) => {
               ¿Cuánto es {num1} + {num2}?
             </p>
             {difficulty === 'facil' && (
-                <div className="flex items-center space-x-2 mb-4">
-                    <div className="flex space-x-1">
+                <div className="flex flex-col items-center space-y-2 mb-4">
+                    <div className="flex space-x-2">
                         {countingObjects1.map((object, index) => (
                             <span key={`obj1-${index}`} className="text-2xl">{object}</span>
                         ))}
                     </div>
-                    <span>+</span>
-                    <div className="flex space-x-1">
+                    <span className="text-2xl">+</span>
+                    <div className="flex space-x-2">
                         {countingObjects2.map((object, index) => (
                             <span key={`obj2-${index}`} className="text-2xl">{object}</span>
                         ))}
