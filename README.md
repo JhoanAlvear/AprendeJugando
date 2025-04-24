@@ -1,4 +1,4 @@
-# Firebase Studio
+# app para aprender operaciones basicas 
 
 This is a NextJS starter in Firebase Studio.
 
