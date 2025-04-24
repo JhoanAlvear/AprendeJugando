@@ -1,37 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface Props {
   difficulty: string;
+  num1: number;
+  num2: number;
 }
 
-const RestarComponent = ({ difficulty }: Props) => {
-  const [num1, setNum1] = useState(15);
-  const [num2, setNum2] = useState(7);
+const RestarComponent = ({ difficulty, num1, num2 }: Props) => {
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
-
-  useEffect(() => {
-    // Ajustar los números según la dificultad
-    switch (difficulty) {
-      case 'facil':
-        setNum1(Math.floor(Math.random() * 10) + 5);
-        setNum2(Math.floor(Math.random() * 5) + 1);
-        break;
-      case 'medio':
-        setNum1(Math.floor(Math.random() * 20) + 10);
-        setNum2(Math.floor(Math.random() * 10) + 5);
-        break;
-      case 'dificil':
-        setNum1(Math.floor(Math.random() * 50) + 20);
-        setNum2(Math.floor(Math.random() * 20) + 10);
-        break;
-      default:
-        setNum1(15);
-        setNum2(7);
-    }
-  }, [difficulty]);
 
   const checkSubtraction = (guess: number) => {
     const correctAnswer = num1 - num2;
