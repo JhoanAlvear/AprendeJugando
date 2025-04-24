@@ -1,7 +1,6 @@
 'use client';
 
 import RestarComponent from '@/components/RestarComponent';
-import CountingObjects from '@/components/CountingObjects';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card"
 import { useState, useEffect } from 'react';
@@ -42,10 +41,10 @@ export default function RestarPage() {
       </h1>
       <Card className="w-full max-w-md">
         <CardContent className="flex flex-col items-center justify-center">
-          <CountingObjects difficulty={difficulty}  operation="restar" num1={num1} num2={num2}/>
           <RestarComponent difficulty={difficulty} num1={num1} num2={num2}/>
         </CardContent>
       </Card>
     </main>
   );
 }
+

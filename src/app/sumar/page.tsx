@@ -1,7 +1,6 @@
 'use client';
 
 import SumarComponent from '@/components/SumarComponent';
-import CountingObjects from '@/components/CountingObjects';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card"
 import { useState, useEffect } from 'react';
@@ -41,10 +40,10 @@ export default function SumarPage() {
       </h1>
       <Card className="w-full max-w-md">
         <CardContent className="flex flex-col items-center justify-center">
-          <CountingObjects difficulty={difficulty} operation="sumar" num1={num1} num2={num2}/>
           <SumarComponent difficulty={difficulty} num1={num1} num2={num2}/>
         </CardContent>
       </Card>
     </main>
   );
 }
+

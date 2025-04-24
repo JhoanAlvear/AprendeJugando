@@ -1,7 +1,6 @@
 'use client';
 
 import DividirComponent from '@/components/DividirComponent';
-import CountingObjects from '@/components/CountingObjects';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card"
 import { useState, useEffect } from 'react';
@@ -40,10 +39,10 @@ export default function DividirPage() {
       </h1>
         <Card className="w-full max-w-md">
           <CardContent className="flex flex-col items-center justify-center">
-            <CountingObjects difficulty={difficulty} operation="dividir" num1={num1} num2={num2} />
             <DividirComponent difficulty={difficulty} num1={num1} num2={num2}/>
           </CardContent>
         </Card>
     </main>
   );
 }
+
