@@ -1,12 +1,37 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const SumarComponent = () => {
+interface Props {
+  difficulty: string;
+}
+
+const SumarComponent = ({ difficulty }: Props) => {
   const [num1, setNum1] = useState(5);
   const [num2, setNum2] = useState(3);
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
+
+  useEffect(() => {
+    // Ajustar los números según la dificultad
+    switch (difficulty) {
+      case 'facil':
+        setNum1(Math.floor(Math.random() * 5) + 1);
+        setNum2(Math.floor(Math.random() * 5) + 1);
+        break;
+      case 'medio':
+        setNum1(Math.floor(Math.random() * 10) + 5);
+        setNum2(Math.floor(Math.random() * 10) + 5);
+        break;
+      case 'dificil':
+        setNum1(Math.floor(Math.random() * 15) + 10);
+        setNum2(Math.floor(Math.random() * 15) + 10);
+        break;
+      default:
+        setNum1(5);
+        setNum2(3);
+    }
+  }, [difficulty]);
 
   const checkSum = (guess: number) => {
     const correctAnswer = num1 + num2;
