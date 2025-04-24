@@ -19,6 +19,7 @@
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
   const [guess, setGuess] = useState('');
+  const [showSubmitButton, setShowSubmitButton] = useState(true);
  
 
   const checkMultiplication = () => {
@@ -27,6 +28,7 @@
   setResult(correctAnswer);
   setFeedback('¡Correcto! ¡Bien hecho!');
   onCorrectAnswer();
+  setShowSubmitButton(false);
   } else {
   setResult(null);
   setFeedback(`Incorrecto. Intenta de nuevo.`);
@@ -46,6 +48,7 @@
   setGuess('');
   setResult(null);
   setFeedback('');
+  setShowSubmitButton(true);
   };
  
 
@@ -70,7 +73,7 @@
   {feedback && (
   <p className="text-md font-medium mt-2">{feedback}</p>
   )}
-  <Button onClick={checkMultiplication} className="mb-2">Enviar Respuesta</Button>
+  {showSubmitButton && <Button onClick={checkMultiplication} className="mb-2">Enviar Respuesta</Button>}
   <Button onClick={handleNewOperation}>Nueva Operación</Button>
   </CardContent>
   </Card>

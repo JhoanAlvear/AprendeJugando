@@ -19,6 +19,7 @@
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
   const [guess, setGuess] = useState('');
+  const [showSubmitButton, setShowSubmitButton] = useState(true);
  
 
   const checkDivision = () => {
@@ -34,6 +35,7 @@
   setResult(correctAnswer);
   setFeedback('¡Correcto! ¡Bien hecho!');
   onCorrectAnswer();
+  setShowSubmitButton(false);
   } else {
   setResult(null);
   setFeedback(`Incorrecto. Intenta de nuevo.`);
@@ -52,6 +54,7 @@
   setGuess('');
   setResult(null);
   setFeedback('');
+  setShowSubmitButton(true);
   };
  
 
@@ -68,12 +71,15 @@
   value={guess}
   onChange={handleInputChange}
   />
-  
-  {feedback && (
-  <p className="text-md font-medium mt-2">{feedback}</p>
-  )}
-  
-  <Button onClick={checkDivision} className="mb-2">Enviar Respuesta</Button>
+        {result !== null && (
+          <p className="text-xl font-semibold text-primary-foreground mt-2">
+            Resultado: {result}
+          </p>
+        )}
+        {feedback && (
+          <p className="text-md font-medium mt-2">{feedback}</p>
+        )}
+  {showSubmitButton && <Button onClick={checkDivision} className="mb-2">Enviar Respuesta</Button>}
   <Button onClick={handleNewOperation}>Nueva Operación</Button>
   </CardContent>
   </Card>
@@ -82,7 +88,5 @@
  
 
  export default DividirComponent;
- 
-
  
 

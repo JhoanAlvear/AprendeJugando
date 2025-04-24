@@ -21,6 +21,7 @@
   const [guess, setGuess] = useState('');
   const [countingObjects1, setCountingObjects1] = useState<string[]>([]);
   const [countingObjects2, setCountingObjects2] = useState<string[]>([]);
+  const [showSubmitButton, setShowSubmitButton] = useState(true);
  
 
   useEffect(() => {
@@ -40,6 +41,7 @@
   setResult(correctAnswer);
   setFeedback('¡Correcto! ¡Bien hecho!');
   onCorrectAnswer();
+  setShowSubmitButton(false);
   } else {
   setResult(null);
   setFeedback(`Incorrecto. Intenta de nuevo.`);
@@ -58,6 +60,7 @@
   setGuess('');
   setResult(null);
   setFeedback('');
+  setShowSubmitButton(true);
   };
  
 
@@ -68,14 +71,14 @@
   ¿Cuánto es {num1} + {num2}?
   </p>
   {difficulty === 'facil' && (
-  <div className="flex flex-col items-center space-y-2 mb-4">
-  <div className="flex space-x-2">
+  <div className="flex items-center space-x-2 mb-4">
+  <div className="flex space-x-1">
   {countingObjects1.map((object, index) => (
   <span key={`obj1-${index}`} className="text-2xl">{object}</span>
   ))}
   </div>
   <span className="text-2xl">+</span>
-  <div className="flex space-x-2">
+  <div className="flex space-x-1">
   {countingObjects2.map((object, index) => (
   <span key={`obj2-${index}`} className="text-2xl">{object}</span>
   ))}
@@ -89,15 +92,15 @@
   value={guess}
   onChange={handleInputChange}
   />
-  {result !== null && (
-  <p className="text-xl font-semibold text-primary-foreground mt-2">
-  Resultado: {result}
-  </p>
-  )}
-  {feedback && (
-  <p className="text-md font-medium mt-2">{feedback}</p>
-  )}
-  <Button onClick={checkSum} className="mb-2">Enviar Respuesta</Button>
+        {result !== null && (
+          <p className="text-xl font-semibold text-primary-foreground mt-2">
+            Resultado: {result}
+          </p>
+        )}
+        {feedback && (
+          <p className="text-md font-medium mt-2">{feedback}</p>
+        )}
+  {showSubmitButton && <Button onClick={checkSum} className="mb-2">Enviar Respuesta</Button>}
   <Button onClick={handleNewOperation}>Nueva Operación</Button>
   </CardContent>
   </Card>

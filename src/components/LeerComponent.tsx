@@ -21,6 +21,7 @@
   const [userInput, setUserInput] = useState('');
   const [feedback, setFeedback] = useState('');
   const [wordList, setWordList] = useState(words);
+  const [showSubmitButton, setShowSubmitButton] = useState(true);
  
 
   useEffect(() => {
@@ -48,6 +49,7 @@
   if (userInput.toLowerCase() === currentWord) {
   setFeedback('¡Correcto! ¡Bien hecho!');
   onCorrectAnswer();
+  setShowSubmitButton(false);
   } else {
   setFeedback('Incorrecto. Intenta de nuevo.');
   onIncorrectAnswer();
@@ -66,6 +68,7 @@
   setUserInput(''); // Clear the input for the next word
   }
   checkSpelling();
+  setShowSubmitButton(true);
   };
  
 
@@ -85,11 +88,13 @@
   {feedback && (
   <p className="text-md font-medium mt-2">{feedback}</p>
   )}
-  <Button
-  onClick={handleNewOperation}
-  >
-  Enviar Respuesta
-  </Button>
+  {showSubmitButton && (
+    <Button
+      onClick={handleNewOperation}
+    >
+      Enviar Respuesta
+    </Button>
+  )}
   
   </CardContent>
   </Card>

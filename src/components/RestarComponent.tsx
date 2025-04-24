@@ -21,6 +21,7 @@
   const [guess, setGuess] = useState('');
   const [countingObjects1, setCountingObjects1] = useState<string[]>([]);
   const [countingObjects2, setCountingObjects2] = useState<string[]>([]);
+  const [showSubmitButton, setShowSubmitButton] = useState(true);
  
 
   useEffect(() => {
@@ -42,6 +43,7 @@
   setResult(correctAnswer);
   setFeedback('¡Correcto! ¡Bien hecho!');
   onCorrectAnswer();
+  setShowSubmitButton(false);
   } else {
   setResult(null);
   setFeedback(`Incorrecto. Intenta de nuevo.`);
@@ -61,6 +63,7 @@
   setGuess('');
   setResult(null);
   setFeedback('');
+  setShowSubmitButton(true);
   };
  
 
@@ -92,15 +95,15 @@
   value={guess}
   onChange={handleInputChange}
   />
-  {result !== null && (
-  <p className="text-xl font-semibold text-primary-foreground mt-2">
-  Resultado: {result}
-  </p>
-  )}
-  {feedback && (
-  <p className="text-md font-medium mt-2">{feedback}</p>
-  )}
-  <Button onClick={checkSubtraction} className="mb-2">Enviar Respuesta</Button>
+        {result !== null && (
+          <p className="text-xl font-semibold text-primary-foreground mt-2">
+            Resultado: {result}
+          </p>
+        )}
+        {feedback && (
+          <p className="text-md font-medium mt-2">{feedback}</p>
+        )}
+  {showSubmitButton && <Button onClick={checkSubtraction} className="mb-2">Enviar Respuesta</Button>}
   <Button onClick={handleNewOperation}>Nueva Operación</Button>
   </CardContent>
   </Card>
