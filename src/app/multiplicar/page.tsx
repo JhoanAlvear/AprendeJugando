@@ -1,3 +1,5 @@
+'use client';
+
 import MultiplicarComponent from '@/components/MultiplicarComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useState } from 'react';
@@ -14,4 +16,5 @@ export default function MultiplicarPage() {
     </main>
   );
 }
+
 

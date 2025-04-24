@@ -1,3 +1,5 @@
+'use client';
+
 import DividirComponent from '@/components/DividirComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useState } from 'react';
@@ -15,4 +17,5 @@ export default function DividirPage() {
     </main>
   );
 }
+
 
