@@ -1,3 +1,5 @@
+'use client';
+
 import LeerComponent from '@/components/LeerComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useState } from 'react';

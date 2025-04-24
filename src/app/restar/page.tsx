@@ -1,3 +1,5 @@
+'use client';
+
 import RestarComponent from '@/components/RestarComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useState } from 'react';
