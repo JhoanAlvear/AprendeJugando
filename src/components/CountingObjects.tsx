@@ -4,61 +4,119 @@ import { useState, useEffect } from 'react';
 
 interface Props {
   difficulty: string;
+  operation: string;
 }
 
-const CountingObjects = ({ difficulty }: Props) => {
-  const [objects, setObjects] = useState([]);
+const CountingObjects = ({ difficulty, operation }: Props) => {
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [objects1, setObjects1] = useState([]);
+  const [objects2, setObjects2] = useState([]);
 
   useEffect(() => {
-    // Generar objetos aleatorios al montar el componente
-    generateObjects();
+    generateNumbers();
   }, [difficulty]);
 
-  const generateObjects = () => {
-    let numberOfObjects = 0;
+  useEffect(() => {
+    generateObjects();
+  }, [num1, num2]);
+
+
+  const generateNumbers = () => {
+      if (operation === 'leer') {
+        return;
+      }
+    let number1 = 0;
+    let number2 = 0;
+
     if (difficulty === 'facil') {
-      numberOfObjects = Math.floor(Math.random() * 5) + 3; // Entre 3 y 7 objetos
+      number1 = Math.floor(Math.random() * 5) + 1;
+      number2 = Math.floor(Math.random() * 5) + 1;
     } else if (difficulty === 'medio') {
-      numberOfObjects = Math.floor(Math.random() * 8) + 5; // Entre 5 y 12 objetos
+      number1 = Math.floor(Math.random() * 10) + 3;
+      number2 = Math.floor(Math.random() * 10) + 3;
     } else {
-      numberOfObjects = Math.floor(Math.random() * 10) + 8; // Entre 8 y 17 objetos
+      number1 = Math.floor(Math.random() * 15) + 5;
+      number2 = Math.floor(Math.random() * 15) + 5;
     }
-    const newObjects = Array.from({ length: numberOfObjects }, (_, index) => ({
+
+    setNum1(number1);
+    setNum2(number2);
+  };
+
+  const generateObjects = () => {
+      if (operation === 'leer') {
+        return;
+      }
+    const newObjects1 = Array.from({ length: num1 }, (_, index) => ({
       id: index,
       type: getRandomObjectType(),
-      position: getRandomPosition(),
+      position: getRandomPosition(index, num1),
     }));
-    setObjects(newObjects);
+    setObjects1(newObjects1);
+
+    const newObjects2 = Array.from({ length: num2 }, (_, index) => ({
+      id: index,
+      type: getRandomObjectType(),
+      position: getRandomPosition(index, num2, 50), // Offset the second group
+    }));
+    setObjects2(newObjects2);
   };
+
 
   const getRandomObjectType = () => {
     const objectTypes = ['🍎', '🍌', '🍇', '🍉', '⭐', '🍄', '🌳', '🌻', '🍀'];
     return objectTypes[Math.floor(Math.random() * objectTypes.length)];
   };
 
-  const getRandomPosition = () => {
-    return {
-      x: Math.floor(Math.random() * 80) + 10, // Posición horizontal aleatoria entre 10% y 90%
-      y: Math.floor(Math.random() * 70) + 15, // Posición vertical aleatoria entre 15% y 85%
-    };
+
+    const getRandomPosition = (index: number, total: number, offsetX: number = 10) => {
+    const spacing = 70 / total; // Adjust spacing based on the number of objects
+    const startPosition = offsetX + (10 - (spacing * total) / 2); // Center the objects
+    const x = startPosition + index * spacing;
+    const y = Math.floor(Math.random() * 20) + 15; // Posición vertical aleatoria entre 15% y 35%
+    return { x, y };
   };
 
   return (
-    <div className="relative w-full h-48 flex justify-center items-center">
-      {difficulty === 'facil' ? (
-        objects.map((object) => (
-          <div
-            key={object.id}
-            className="absolute"
-            style={{
-              top: `${object.position.y}%`,
-              left: `${object.position.x}%`,
-              fontSize: '2rem',
-            }}
-          >
-            {object.type}
+    <div className="relative w-full h-48 flex items-center justify-center">
+      {operation !== 'leer' && difficulty === 'facil' ? (
+        <>
+          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 flex">
+            {objects1.map((object) => (
+              <div
+                key={object.id}
+                className="absolute"
+                style={{
+                  top: `${object.position.y}%`,
+                  left: `${object.position.x}%`,
+                  fontSize: '2rem',
+                }}
+              >
+                {object.type}
+              </div>
+            ))}
           </div>
-        ))
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 flex">
+            {objects2.map((object) => (
+              <div
+                key={object.id}
+                className="absolute"
+                style={{
+                  top: `${object.position.y}%`,
+                  left: `${object.position.x}%`,
+                  fontSize: '2rem',
+                }}
+              >
+                {object.type}
+              </div>
+            ))}
+          </div>
+            { operation === 'sumar' &&  <p className="text-lg text-muted-foreground"> {num1} + {num2}</p> }
+            { operation === 'restar' &&  <p className="text-lg text-muted-foreground"> {num1} - {num2}</p> }
+            { operation === 'multiplicar' &&  <p className="text-lg text-muted-foreground"> {num1} * {num2}</p> }
+            { operation === 'dividir' &&  <p className="text-lg text-muted-foreground"> {num1} / {num2}</p> }
+        </>
       ) : null}
     </div>
   );

@@ -34,23 +34,22 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-2 gap-8">
-        <Link href="/sumar" className="bg-primary text-primary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-primary/80 transition-colors">
+        <Link href={`/sumar?difficulty=${difficulty}`} className="bg-primary text-primary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-primary/80 transition-colors">
           Sumar
         </Link>
-        <Link href="/restar" className="bg-secondary text-secondary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-secondary/80 transition-colors">
+        <Link href={`/restar?difficulty=${difficulty}`} className="bg-secondary text-secondary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-secondary/80 transition-colors">
           Restar
         </Link>
-        <Link href="/multiplicar" className="bg-chart-2 text-primary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-chart-2/80 transition-colors">
+        <Link href={`/multiplicar?difficulty=${difficulty}`} className="bg-chart-2 text-primary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-chart-2/80 transition-colors">
           Multiplicar
         </Link>
-        <Link href="/dividir" className="bg-chart-1 text-primary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-chart-1/80 transition-colors">
+        <Link href={`/dividir?difficulty=${difficulty}`} className="bg-chart-1 text-primary-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-chart-1/80 transition-colors">
           Dividir
         </Link>
-        <Link href="/leer" className="bg-accent text-accent-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-accent/80 transition-colors">
+        <Link href={`/leer?difficulty=${difficulty}`} className="bg-accent text-accent-foreground rounded-xl shadow-md p-6 flex items-center justify-center text-2xl font-semibold hover:bg-accent/80 transition-colors">
           Leer
         </Link>
       </div>
     </main>
   );
 }
-
