@@ -55,12 +55,8 @@ export default function Home() {
               <Link href={`/dividir?difficulty=${difficulty}`}>Dividir</Link>
             </CardContent>
         </Card>
-        <Card className="bg-accent text-accent-foreground rounded-xl shadow-md hover:bg-accent/80 transition-colors">
-            <CardContent className="p-6 flex items-center justify-center text-2xl font-semibold">
-             <Link href={`/leer?difficulty=${difficulty}`}>Leer</Link>
-            </CardContent>
-        </Card>
       </div>
     </main>
   );
 }
+
