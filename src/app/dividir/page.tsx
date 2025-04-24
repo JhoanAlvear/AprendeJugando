@@ -3,6 +3,7 @@
 import DividirComponent from '@/components/DividirComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useSearchParams } from 'next/navigation';
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function DividirPage() {
   const searchParams = useSearchParams();
@@ -13,8 +14,13 @@ export default function DividirPage() {
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Dividir
       </h1>
-      <CountingObjects difficulty={difficulty} operation="dividir" />
-      <DividirComponent difficulty={difficulty} />
+        <Card className="w-full max-w-md">
+          <CardContent className="flex flex-col items-center justify-center">
+            <CountingObjects difficulty={difficulty} operation="dividir" />
+            <DividirComponent difficulty={difficulty} />
+          </CardContent>
+        </Card>
     </main>
   );
 }
+

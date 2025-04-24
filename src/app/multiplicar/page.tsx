@@ -3,6 +3,7 @@
 import MultiplicarComponent from '@/components/MultiplicarComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useSearchParams } from 'next/navigation';
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function MultiplicarPage() {
   const searchParams = useSearchParams();
@@ -13,8 +14,13 @@ export default function MultiplicarPage() {
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Multiplicar
       </h1>
-      <CountingObjects difficulty={difficulty}  operation="multiplicar"/>
-      <MultiplicarComponent difficulty={difficulty} />
+      <Card className="w-full max-w-md">
+          <CardContent className="flex flex-col items-center justify-center">
+            <CountingObjects difficulty={difficulty}  operation="multiplicar"/>
+            <MultiplicarComponent difficulty={difficulty} />
+          </CardContent>
+        </Card>
     </main>
   );
 }
+

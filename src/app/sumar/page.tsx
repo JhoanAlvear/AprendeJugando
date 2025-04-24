@@ -3,6 +3,7 @@
 import SumarComponent from '@/components/SumarComponent';
 import CountingObjects from '@/components/CountingObjects';
 import { useSearchParams } from 'next/navigation';
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function SumarPage() {
   const searchParams = useSearchParams();
@@ -13,8 +14,13 @@ export default function SumarPage() {
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Sumar
       </h1>
-      <CountingObjects difficulty={difficulty} operation="sumar" />
-      <SumarComponent difficulty={difficulty}/>
+      <Card className="w-full max-w-md">
+        <CardContent className="flex flex-col items-center justify-center">
+          <CountingObjects difficulty={difficulty} operation="sumar" />
+          <SumarComponent difficulty={difficulty}/>
+        </CardContent>
+      </Card>
     </main>
   );
 }
+
