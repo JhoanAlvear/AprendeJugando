@@ -1,17 +1,17 @@
 'use client';
 
+import { Suspense } from 'react';
 import SumarComponent from '@/components/SumarComponent';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card"
 import { useState, useEffect } from 'react';
 
-export default function SumarPage() {
+function SumarContent() {
   const searchParams = useSearchParams();
   const difficulty = searchParams.get('difficulty') || 'facil';
-
   const [num1, setNum1] = useState(5);
   const [num2, setNum2] = useState(3);
-    const [streak, setStreak] = useState(0);
+  const [streak, setStreak] = useState(0);
 
   useEffect(() => {
     // Ajustar los números según la dificultad
@@ -34,28 +34,41 @@ export default function SumarPage() {
     }
   }, [difficulty]);
 
-    const handleCorrectAnswer = () => {
-        setStreak(prevStreak => prevStreak + 1);
-    };
+  const handleCorrectAnswer = () => {
+    setStreak(prevStreak => prevStreak + 1);
+  };
 
-    const handleIncorrectAnswer = () => {
-        setStreak(0);
-    };
-
+  const handleIncorrectAnswer = () => {
+    setStreak(0);
+  };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-8">
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Sumar
       </h1>
-        <p className="text-xl font-semibold mb-4 text-muted-foreground">
-            Racha: {streak}
-        </p>
+      <p className="text-xl font-semibold mb-4 text-muted-foreground">
+        Racha: {streak}
+      </p>
       <Card className="w-full max-w-md">
         <CardContent className="flex flex-col items-center justify-center">
-          <SumarComponent difficulty={difficulty} num1={num1} num2={num2} onCorrectAnswer={handleCorrectAnswer} onIncorrectAnswer={handleIncorrectAnswer}/>
+          <SumarComponent 
+            difficulty={difficulty} 
+            num1={num1} 
+            num2={num2} 
+            onCorrectAnswer={handleCorrectAnswer} 
+            onIncorrectAnswer={handleIncorrectAnswer}
+          />
         </CardContent>
       </Card>
     </main>
+  );
+}
+
+export default function SumarPage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <SumarContent />
+    </Suspense>
   );
 }

@@ -1,11 +1,12 @@
 'use client';
 
+import { Suspense } from 'react';
 import DividirComponent from '@/components/DividirComponent';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card"
 import { useState, useEffect } from 'react';
 
-export default function DividirPage() {
+function DividirContent() {
   const searchParams = useSearchParams();
   const difficulty = searchParams.get('difficulty') || 'facil';
   const [num1, setNum1] = useState(10);
@@ -41,7 +42,6 @@ export default function DividirPage() {
     setStreak(0);
   };
 
-
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background p-8">
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
@@ -50,11 +50,25 @@ export default function DividirPage() {
       <p className="text-xl font-semibold mb-4 text-muted-foreground">
         Racha: {streak}
       </p>
-        <Card className="w-full max-w-md">
-          <CardContent className="flex flex-col items-center justify-center">
-            <DividirComponent difficulty={difficulty} num1={num1} num2={num2} onCorrectAnswer={handleCorrectAnswer} onIncorrectAnswer={handleIncorrectAnswer}/>
-          </CardContent>
-        </Card>
+      <Card className="w-full max-w-md">
+        <CardContent className="flex flex-col items-center justify-center">
+          <DividirComponent 
+            difficulty={difficulty} 
+            num1={num1} 
+            num2={num2} 
+            onCorrectAnswer={handleCorrectAnswer} 
+            onIncorrectAnswer={handleIncorrectAnswer}
+          />
+        </CardContent>
+      </Card>
     </main>
+  );
+}
+
+export default function DividirPage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <DividirContent />
+    </Suspense>
   );
 }
