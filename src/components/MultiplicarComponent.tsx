@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Card, CardContent } from "@/components/ui/card"
 
 interface Props {
   difficulty: string;
@@ -24,34 +25,37 @@ const MultiplicarComponent = ({ difficulty, num1, num2 }: Props) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <p className="text-lg text-muted-foreground mb-4">
-        ¿Cuánto es {num1} x {num2}?
-      </p>
-      <input
-        type="number"
-        className="border border-input rounded-md px-3 py-2 text-base text-foreground mb-2"
-        placeholder="Escribe tu respuesta"
-        onChange={(e) => {
-          const guess = parseFloat(e.target.value);
-          if (!isNaN(guess)) {
-            checkMultiplication(guess);
-          } else {
-            setResult(null);
-            setFeedback('');
-          }
-        }}
-      />
-      {result !== null && (
-        <p className="text-xl font-semibold text-primary-foreground mt-2">
-          Resultado: {result}
-        </p>
-      )}
-      {feedback && (
-        <p className="text-md font-medium mt-2">{feedback}</p>
-      )}
-    </div>
+    <Card className="w-full max-w-md">
+      <CardContent className="flex flex-col items-center">
+          <p className="text-lg text-muted-foreground mb-4">
+            ¿Cuánto es {num1} x {num2}?
+          </p>
+          <input
+            type="number"
+            className="border border-input rounded-md px-3 py-2 text-base text-foreground mb-2"
+            placeholder="Escribe tu respuesta"
+            onChange={(e) => {
+              const guess = parseFloat(e.target.value);
+              if (!isNaN(guess)) {
+                checkMultiplication(guess);
+              } else {
+                setResult(null);
+                setFeedback('');
+              }
+            }}
+          />
+          {result !== null && (
+            <p className="text-xl font-semibold text-primary-foreground mt-2">
+              Resultado: {result}
+            </p>
+          )}
+          {feedback && (
+            <p className="text-md font-medium mt-2">{feedback}</p>
+          )}
+      </CardContent>
+    </Card>
   );
 };
 
 export default MultiplicarComponent;
+

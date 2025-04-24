@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from "@/components/ui/card"
 
 interface Props {
   difficulty: string;
@@ -11,6 +12,16 @@ interface Props {
 const RestarComponent = ({ difficulty, num1, num2 }: Props) => {
   const [result, setResult] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
+    const [countingObjects, setCountingObjects] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (difficulty === 'facil') {
+            const objects = Array(num1).fill('🍎'); // Use a simple apple emoji
+            setCountingObjects(objects);
+        } else {
+            setCountingObjects([]);
+        }
+    }, [difficulty, num1]);
 
   const checkSubtraction = (guess: number) => {
     const correctAnswer = num1 - num2;
@@ -24,33 +35,42 @@ const RestarComponent = ({ difficulty, num1, num2 }: Props) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <p className="text-lg text-muted-foreground mb-4">
-        ¿Cuánto es {num1} - {num2}?
-      </p>
-      <input
-        type="number"
-        className="border border-input rounded-md px-3 py-2 text-base text-foreground mb-2"
-        placeholder="Escribe tu respuesta"
-        onChange={(e) => {
-          const guess = parseFloat(e.target.value);
-          if (!isNaN(guess)) {
-            checkSubtraction(guess);
-          } else {
-            setResult(null);
-            setFeedback('');
-          }
-        }}
-      />
-      {result !== null && (
-        <p className="text-xl font-semibold text-primary-foreground mt-2">
-          Resultado: {result}
-        </p>
-      )}
-      {feedback && (
-        <p className="text-md font-medium mt-2">{feedback}</p>
-      )}
-    </div>
+    <Card className="w-full max-w-md">
+        <CardContent className="flex flex-col items-center">
+            <p className="text-lg text-muted-foreground mb-4">
+              ¿Cuánto es {num1} - {num2}?
+            </p>
+            {difficulty === 'facil' && (
+                <div className="flex space-x-2 mb-4">
+                    {countingObjects.map((object, index) => (
+                        <span key={index} className="text-2xl">{object}</span>
+                    ))}
+                </div>
+            )}
+            <input
+              type="number"
+              className="border border-input rounded-md px-3 py-2 text-base text-foreground mb-2"
+              placeholder="Escribe tu respuesta"
+              onChange={(e) => {
+                const guess = parseFloat(e.target.value);
+                if (!isNaN(guess)) {
+                  checkSubtraction(guess);
+                } else {
+                  setResult(null);
+                  setFeedback('');
+                }
+              }}
+            />
+            {result !== null && (
+              <p className="text-xl font-semibold text-primary-foreground mt-2">
+                Resultado: {result}
+              </p>
+            )}
+            {feedback && (
+              <p className="text-md font-medium mt-2">{feedback}</p>
+            )}
+        </CardContent>
+      </Card>
   );
 };
 
