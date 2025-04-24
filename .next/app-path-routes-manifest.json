@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/multiplicar/page": "/multiplicar",
+  "/dividir/page": "/dividir",
+  "/restar/page": "/restar",
+  "/sumar/page": "/sumar",
+  "/page": "/"
+}

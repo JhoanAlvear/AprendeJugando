@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/multiplicar/page": "app/multiplicar/page.js",
+  "/dividir/page": "app/dividir/page.js",
+  "/restar/page": "app/restar/page.js",
+  "/sumar/page": "app/sumar/page.js",
+  "/page": "app/page.js"
+}
