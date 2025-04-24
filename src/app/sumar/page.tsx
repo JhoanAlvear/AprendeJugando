@@ -1,3 +1,4 @@
+import SumarComponent from '@/components/SumarComponent';
 
 export default function SumarPage() {
   return (
@@ -5,9 +6,7 @@ export default function SumarPage() {
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Sumar
       </h1>
-      <p className="text-lg text-muted-foreground">
-        ¡Aquí podrás aprender a sumar de forma divertida! (Contenido en desarrollo)
-      </p>
+      <SumarComponent />
     </main>
   );
 }

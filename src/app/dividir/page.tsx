@@ -1,3 +1,4 @@
+import DividirComponent from '@/components/DividirComponent';
 
 export default function DividirPage() {
   return (
@@ -5,9 +6,7 @@ export default function DividirPage() {
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Dividir
       </h1>
-      <p className="text-lg text-muted-foreground">
-        ¡Aquí podrás aprender a dividir de forma divertida! (Contenido en desarrollo)
-      </p>
+      <DividirComponent />
     </main>
   );
 }

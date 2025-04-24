@@ -1,3 +1,4 @@
+import RestarComponent from '@/components/RestarComponent';
 
 export default function RestarPage() {
   return (
@@ -5,9 +6,7 @@ export default function RestarPage() {
       <h1 className="text-3xl font-bold mb-4 text-primary-foreground">
         Restar
       </h1>
-      <p className="text-lg text-muted-foreground">
-        ¡Aquí podrás aprender a restar de forma divertida! (Contenido en desarrollo)
-      </p>
+      <RestarComponent />
     </main>
   );
 }
